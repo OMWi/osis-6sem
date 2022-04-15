@@ -28,10 +28,6 @@ size_t readBannedWords(char*** words) {
 }
 
 void filterInput(size_t wordsNumber, char** bannedWords) {
-    for (size_t index = 0; index < wordsNumber; index++) {
-        printf("%s", bannedWords[index]);
-    }
-
     FILE* inputFile = fopen(inputFileName, "r");
     FILE* outputFile = fopen(outputFileName, "w");
     char* line = NULL; size_t len = 0;
@@ -56,6 +52,15 @@ void filterInput(size_t wordsNumber, char** bannedWords) {
                     fprintf(outputFile, "%s", temp);
                 }
             }
+            else {
+                if (word) {
+                    fprintf(outputFile, "*** ");
+                }
+                else {
+                    fprintf(outputFile, "***");
+                }
+                
+            }
         }     
     }
     free(line);
@@ -67,4 +72,5 @@ int main() {
     char** bannedWords = NULL;
     size_t wordsNumber = readBannedWords(&bannedWords);
     filterInput(wordsNumber, bannedWords);
+    printf("output file generated\n");
 }
